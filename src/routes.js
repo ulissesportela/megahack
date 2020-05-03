@@ -10,7 +10,7 @@ const AppStack = createStackNavigator()
 export default function Routes() {
     return (
         <NavigationContainer>
-            <AppStack.Navigator>
+            <AppStack.Navigator screenOptions={{ headerShown: false }}>
                 <AppStack.Screen name="Cartoes" component={Cartoes} />
                 <AppStack.Screen name="Cartao" component={Cartao} />
             </AppStack.Navigator>
