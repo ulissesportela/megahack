@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import logoImg from '../assets/logo.png'
 import styles from './styles'
 
@@ -28,6 +29,7 @@ export default function Cartoes() {
 
                         <TouchableOpacity style={styles.detailsButton}>
                             <Text style={styles.detailsButtonText}>Ver mais datalhes</Text>
+                            <Icon name='info-circle' size={16} color="#83DEA3" />
                         </TouchableOpacity>
                     </View>
 
@@ -43,6 +45,7 @@ export default function Cartoes() {
 
                         <TouchableOpacity style={styles.detailsButton}>
                             <Text style={styles.detailsButtonText}>Ver mais datalhes</Text>
+                            <Icon name='arrow-right' size={16} color="#83DEA3" />
                         </TouchableOpacity>
                     </View>
 
@@ -58,6 +61,7 @@ export default function Cartoes() {
 
                         <TouchableOpacity style={styles.detailsButton}>
                             <Text style={styles.detailsButtonText}>Ver mais datalhes</Text>
+                            <Icon name='arrow-right' size={16} color="#83DEA3" />
                         </TouchableOpacity>
                     </View>
             </View>
