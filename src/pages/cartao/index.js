@@ -1,23 +1,22 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+//import MailCompose from 'react-native-mail-compose'
+import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import logoImg from '../assets/logo.png'
 import styles from './styles'
 
 export default function Detalhe() {
     const navigation = useNavigation()
+    const message = `Olá Participante, estou entrando em contato entonteri seu cartão no Tarrafa.`
 
     function navigateBack() {
         navigation.goBack()
     }
 
-    function sendMail() {
-        
-    }
 
     function sendWhatsapp() {
-
+        Linking.openURL(`whatsapp://send?phone=5561981513447&text=${message}`)
     }
 
     return (
@@ -46,13 +45,10 @@ export default function Detalhe() {
                 <Text style={styles.networkDescription}>Entre em contato:</Text> 
 
                 <View style={styles.actions}>
-                    <TouchableOpacity style={styles.action} onPress={() => {}}>
+                    <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
                         <Text style={styles.actionText}>WatsApp</Text> 
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.action} onPress={() => {}}>
-                        <Text style={styles.actionText}>E-mail</Text> 
-                    </TouchableOpacity>
                 </View>
             </View>
         </View>
