@@ -1,10 +1,17 @@
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import logoImg from '../assets/logo.png'
 import styles from './styles'
 
 export default function Cartoes() {
+    const navigation = useNavigation()
+
+    function navigateToCartao() {
+        navigation.navigate('Cartao')
+    }
+
     return (
         <View style={styles.container} >
             <View style={styles.header}>
@@ -32,7 +39,7 @@ export default function Cartoes() {
                         <Text style={styles.cartaoProperty}>Tipo de network:</Text> 
                         <Text style={styles.cartaoValue}>Profissional</Text> 
 
-                        <TouchableOpacity style={styles.detailsButton}>
+                        <TouchableOpacity style={styles.detailsButton} onPress={navigateToCartao}>
                             <Text style={styles.detailsButtonText}>Ver mais datalhes</Text>
                             <Icon name='info-circle' size={16} color="#83DEA3" />
                         </TouchableOpacity>
