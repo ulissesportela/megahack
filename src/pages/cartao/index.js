@@ -16,7 +16,7 @@ export default function Detalhe() {
 
 
     function sendWhatsapp() {
-        Linking.openURL(`whatsapp://send?phone=5561981513447&text=${message}`)
+        Linking.openURL(`whatsapp://send?phone=5561999999999&text=${message}`)
     }
 
     return (
