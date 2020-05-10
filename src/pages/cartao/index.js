@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 //import MailCompose from 'react-native-mail-compose'
 import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -8,15 +8,19 @@ import styles from './styles'
 
 export default function Detalhe() {
     const navigation = useNavigation()
-    const message = `Olá Participante, entonteri seu cartão no Tarrafa, vamos conversar.`
 
+    //capturando o cartão enviado por params
+    const route = useRoute()
+    const cartao = route.params.cartao
+
+    const message = `Olá ${ cartao.nome}, entonteri seu cartão no Tarrafa! Vamos conversar?`
+    
     function navigateBack() {
         navigation.goBack()
     }
 
-
     function sendWhatsapp() {
-        Linking.openURL(`whatsapp://send?phone=5561999999999&text=${message}`)
+        Linking.openURL(`whatsapp://send?phone=55${cartao.telefone}&text=${message}`)
     }
 
     return (
@@ -30,13 +34,13 @@ export default function Detalhe() {
             </View>
             <View style={styles.cartao} >
                 <Text style={[styles.cartaoProperty, { marginTop: 0 }]}>Nome:</Text> 
-                <Text style={styles.cartaoValue}>Lorie Smith de Brasília/DF </Text> 
+                <Text style={styles.cartaoValue}>{ cartao.nome }</Text> 
 
                 <Text style={styles.cartaoProperty}>Bio:</Text> 
-                <Text style={styles.cartaoValue}>Gestora de créditos da XYZ Bank, onde a Lorie processa os pedidos de empréstimo do início ao fim, incluindo o refinanciamento de hipotecas e educando os clientes sobre suas diferentes opções de financiamento.</Text> 
+                <Text style={styles.cartaoValue}>{ cartao.descricao }</Text> 
 
                 <Text style={styles.cartaoProperty}>Tipo de network:</Text> 
-                <Text style={styles.cartaoValue}>Profissional</Text> 
+                <Text style={styles.cartaoValue}>{cartao.tipo_networking.map(el => el.nome)}</Text> 
             </View>
             <View style={styles.contactBox} >
                 <Text style={styles.networkTitle}>Faça network!</Text> 
