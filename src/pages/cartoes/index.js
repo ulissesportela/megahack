@@ -1,23 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import logoImg from '../assets/logo.png'
 import styles from './styles'
+import api from '../../services/api'
 
 export default function Cartoes() {
+    const [cartoes, setCartoes] = useState([])
+
+    const [qtdCartoes, setQtdCartoes] = useState(0)
+
     const navigation = useNavigation()
 
-    function navigateToCartao() {
-        navigation.navigate('Cartao')
+    function navigateToCartao(cartao) {
+        navigation.navigate('Cartao', { cartao })
     }
+
+    async function loadCartoes() {
+        const response = await api.get('cartoes')
+
+        setCartoes(response.data)
+        setQtdCartoes(Object.keys(response.data).length)
+    }
+
+    useEffect(() => {
+        loadCartoes()
+    }, [])
 
     return (
         <View style={styles.container} >
             <View style={styles.header}>
                 <Image source={logoImg} />
                 <Text style={styles.headerText}>
-                Total de <Text style={styles.headerTextBold}>3 cartões</Text>.
+                Total de <Text style={styles.headerTextBold}>{qtdCartoes} cartões</Text>.
                 </Text>
             </View>
             <Text style={styles.title}>Bem-vindo!</Text>
@@ -25,21 +41,21 @@ export default function Cartoes() {
 
             <FlatList
                 style={styles.cartaoList} 
-                data={[1,2,3]}
-                keyExtractor={cartao => String(cartao)}
+                data={cartoes}
+                keyExtractor={cartao => String(cartao.usuario_id)}
                 showsVerticalScrollIndicator={false}
-                renderItem={() => (
+                renderItem={({ item: cartao }) => (
                     <View style={styles.cartao} >
                         <Text style={styles.cartaoProperty}>Nome:</Text> 
-                        <Text style={styles.cartaoValue}>Lorie Smith</Text> 
+                        <Text style={styles.cartaoValue}>{cartao.nome}</Text> 
 
                         <Text style={styles.cartaoProperty}>Bio:</Text> 
-                        <Text style={styles.cartaoValue}>Gestora de créditos da XYZ Bank, onde a Lorie processa os pedidos de empréstimo do início ao fim, incluindo o refinanciamento de hipotecas e educando os clientes sobre suas diferentes opções de financiamento.</Text> 
+                        <Text style={styles.cartaoValue}>{cartao.descricao}</Text> 
 
                         <Text style={styles.cartaoProperty}>Tipo de network:</Text> 
-                        <Text style={styles.cartaoValue}>Profissional</Text> 
+                        <Text style={styles.cartaoValue}>{cartao.tipo_networking.map(el => el.nome)}</Text> 
 
-                        <TouchableOpacity style={styles.detailsButton} onPress={navigateToCartao}>
+                        <TouchableOpacity style={styles.detailsButton} onPress={() => navigateToCartao(cartao)}>
                             <Text style={styles.detailsButtonText}>Ver mais datalhes</Text>
                             <Icon name='info-circle' size={16} color="#83DEA3" />
                         </TouchableOpacity>

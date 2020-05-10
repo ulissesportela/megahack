@@ -8,7 +8,7 @@ import styles from './styles'
 
 export default function Detalhe() {
     const navigation = useNavigation()
-    const message = `Olá Participante, estou entrando em contato entonteri seu cartão no Tarrafa.`
+    const message = `Olá Participante, entonteri seu cartão no Tarrafa, vamos conversar.`
 
     function navigateBack() {
         navigation.goBack()
